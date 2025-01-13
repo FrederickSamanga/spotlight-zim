@@ -13,5 +13,22 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.1
+    container_name: spotlight-keycloak
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://db/keycloak_db
+      KC_DB_USERNAME: fredericksamanga
+      KC_DB_PASSWORD: samanga124
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+    command: start-dev
+
 volumes:
   postgres-data:
+  keycloak-data:
